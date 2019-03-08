@@ -45,9 +45,7 @@ const tasksData = new Array(40).fill()
                                    id: tasksTempCounter++,
                                    title: `Start typing your text here...`,
                                    color: availableTaskColors[getRandomInteger(0, availableTaskColors.length - 1)],
-                                   deadline: new Date(
-                                     Date.now() + getRandomInteger(-2592000000, 2592000000)
-                                   ),
+                                   deadline: new Date(Date.now() + getRandomInteger(-2592000000, 2592000000)),
                                    repeatingDays: new Map([
                                      [`mo`, Boolean(getRandomInteger(0, 1))],
                                      [`tu`, Boolean(getRandomInteger(0, 1))],
@@ -211,8 +209,7 @@ const createTask = (taskData) => {
                                                        .reverse()
                                                        .join(` `);
                                           })
-                                          .join(``)
-                                  }"/>
+                                          .join(``)}"/>
                   </label>
 
                   <label class="card__input-deadline-wrap">
@@ -240,50 +237,53 @@ const createTask = (taskData) => {
                                             // US формат `11:00 AM`.
                                             return time.toLocaleString(outputSettings.locale, outputSettings.format);
                                           })
-                                          .join(``)
-                                  }"/>
+                                          .join(``)}"/>
                   </label>
                 </fieldset>
 
                 <button class="card__repeat-toggle" type="button">
-                  repeat:<span class="card__repeat-status">${
-                    [...taskData.repeatingDays].some((dayData) => dayData[1]) ? `yes` : `no`
-                  }</span>
+                  repeat:<span class="card__repeat-status">
+                  ${[...taskData.repeatingDays].some((dayData) => dayData[1]) ? `yes` : `no`}
+                  </span>
                 </button>
 
                 <fieldset class="card__repeat-days">
-                  <div class="card__repeat-days-inner">
-                    ${[...taskData.repeatingDays].reduce((markup, dayData, i) => {
-                      const day = dayData[0]; // день недели.
-                      const daySerialNo = i + 1; // порядковый номер дня недели (1 - 7).
-                      const isTaskRepeatedToday = dayData[1]; // в этот день задача повторяется? true || false.
 
-                      return markup + `
-                      <input class="visually-hidden card__repeat-day-input"
-                             id="repeat-${day}-${daySerialNo}"
-                             type="checkbox"
-                             name="repeat"
-                             value="${day}"
-                             ${isTaskRepeatedToday ? `checked` : ``}/>
-                      <label class="card__repeat-day" for="repeat-${day}-${daySerialNo}">${day}</label>`;
-                    }, ``)}
+
+                  <div class="card__repeat-days-inner">
+  ${[...taskData.repeatingDays].reduce((markupFragment, dayData, i) => {
+    const day = dayData[0]; // день недели.
+    const daySerialNo = i + 1; // порядковый номер дня недели (1 - 7).
+    const isTaskRepeatedToday = dayData[1]; // в этот день задача повторяется? true || false.
+
+    return markupFragment + `
+      <input class="visually-hidden card__repeat-day-input"
+             id="repeat-${day}-${daySerialNo}"
+             type="checkbox"
+             name="repeat"
+             value="${day}"
+             ${isTaskRepeatedToday ? `checked` : ``}/>
+      <label class="card__repeat-day" for="repeat-${day}-${daySerialNo}">${day}</label>`;
+  }, ``)}
                   </div>
+
+
                 </fieldset>
               </div>
 
               <div class="card__hashtag">
                 <div class="card__hashtag-list">
-                  ${[...taskData.hashtags].reduce((markup, hashtag) => {
-                    return markup + `
-                      <span class="card__hashtag-inner">
-                        <input class="card__hashtag-hidden-input"
-                               type="hidden"
-                               name="hashtag"
-                               value="${hashtag}"/>
-                        <button class="card__hashtag-name" type="button">#${hashtag}</button>
-                        <button class="card__hashtag-delete" type="button">delete</button>
-                      </span>`;
-                  }, ``)}
+  ${[...taskData.hashtags].reduce((markupFragment, hashtag) => {
+    return markupFragment + `
+      <span class="card__hashtag-inner">
+        <input class="card__hashtag-hidden-input"
+               type="hidden"
+               name="hashtag"
+               value="${hashtag}"/>
+        <button class="card__hashtag-name" type="button">#${hashtag}</button>
+        <button class="card__hashtag-delete" type="button">delete</button>
+      </span>`;
+  }, ``)}
                 </div>
 
                 <label>
@@ -307,17 +307,17 @@ const createTask = (taskData) => {
             <div class="card__colors-inner">
               <h3 class="card__colors-title">Color</h3>
               <div class="card__colors-wrap">
-                ${availableTaskColors.reduce((markup, availableColor) => {
-                  return markup + `
-                    <input class="card__color-input card__color-input--${availableColor} visually-hidden"
-                           id="color-${availableColor}-${taskData.id}"
-                           type="radio"
-                           name="color"
-                           value="${availableColor}"
-                           ${availableColor === taskData.color ? `checked` : ``}/>
-                    <label class="card__color card__color--${availableColor}"
-                           for="color-${availableColor}-${taskData.id}">${availableColor}</label>`;
-                }, ``)}
+  ${availableTaskColors.reduce((markupFragment, availableColor) => {
+    return markupFragment + `
+      <input class="card__color-input card__color-input--${availableColor} visually-hidden"
+             id="color-${availableColor}-${taskData.id}"
+             type="radio"
+             name="color"
+             value="${availableColor}"
+             ${availableColor === taskData.color ? `checked` : ``}/>
+      <label class="card__color card__color--${availableColor}"
+             for="color-${availableColor}-${taskData.id}">${availableColor}</label>`;
+  }, ``)}
               </div>
             </div>
           </div>
@@ -331,7 +331,7 @@ const createTask = (taskData) => {
       </form>
     </article>`;
 
-   return createElement(markup);
+  return createElement(markup);
 };
 
 // Рендер фильтров.
