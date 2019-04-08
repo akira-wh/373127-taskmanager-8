@@ -1,7 +1,7 @@
 import {getRandomInteger} from './utils.js';
 
 // Данные задач
-const tasksData = [
+const tasks = [
   {
     id: 1,
     title: `Подготовить растительные образцы`,
@@ -785,11 +785,11 @@ const tasksData = [
 ];
 
 // Данные фильтров.
-const filtersData = [
+const filters = [
   {
     id: `all`,
     name: `All`,
-    tasksNumber: tasksData.length
+    tasksNumber: tasks.length
   },
   {
     id: `overdue`,
@@ -804,19 +804,19 @@ const filtersData = [
   {
     id: `favorites`,
     name: `Favorites`,
-    tasksNumber: tasksData.reduce((accum, taskData) => taskData.isFavorite ? ++accum : accum, 0)
+    tasksNumber: tasks.reduce((accum, taskData) => taskData.isFavorite ? ++accum : accum, 0)
   },
   {
     id: `repeating`,
     name: `Repeating`,
-    tasksNumber: tasksData.reduce((accum, taskData) => {
+    tasksNumber: tasks.reduce((accum, taskData) => {
       return [...taskData.repeatingDays].some((dayData) => dayData[1]) ? ++accum : accum;
     }, 0)
   },
   {
     id: `tags`,
     name: `Tags`,
-    tasksNumber: tasksData.reduce((accum, taskData) => accum.add(...taskData.hashtags), new Set()).size
+    tasksNumber: tasks.reduce((accum, taskData) => accum.add(...taskData.hashtags), new Set()).size
   },
   {
     id: `archive`,
@@ -825,4 +825,4 @@ const filtersData = [
   }
 ];
 
-export {tasksData, filtersData};
+export {tasks, filters};

@@ -13,18 +13,4 @@ const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-/**
- * Создание DOM-элемента из HTML разметки.
- *
- * @function createElement
- * @param {string} markup — HTML разметка
- * @return {node} — готовый DOM-элемент
- */
-const createElement = (markup) => {
-  const element = document.createElement(`template`);
-  element.innerHTML = markup.trim();
-
-  return element.content;
-};
-
-export {getRandomInteger, createElement};
+export {getRandomInteger};
